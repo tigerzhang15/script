@@ -30,6 +30,17 @@ else
     exit 3 && echo "ERROR: /etc/yum.repos.d not exist"
 fi
 
+#关闭防火墙
+Fw_Status=$(systemctl list-unit-files | grep firewalld | awk '{print $2}')
+if [ $Fw_Status = enabled ];then
+	systemctl disable --now firewalld &> /dev/null
+else
+    echo "firewalld maybe already shutdown"
+fi
+
+#关闭selinux
+sed -i.bak 's|\(SELINUX=\)enforcing|\1disabled|g' /etc/selinux/config
+
 #配置vim
 yum list installed | grep ^vim &> /dev/null || yum install vim -y
 grep 'set ts=4' /etc/vimrc &> /dev/null || echo 'set ts=4' >> /etc/vimrc
