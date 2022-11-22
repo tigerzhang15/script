@@ -1,5 +1,7 @@
 #!/bin/bash
-#此脚本用来初始化centos7,更新源，安装基础软件包等功能
+#此脚本用来初始化centos7系列的系统
+
+#变量
 TIME=`date +%d%H%M%S`
 
 #判断系统版本
@@ -27,3 +29,10 @@ if [ -d /etc/yum.repos.d ];then
 else
     exit 3 && echo "ERROR: /etc/yum.repos.d not exist"
 fi
+
+#配置vim
+yum list installed | grep ^vim &> /dev/null || yum install vim -y
+grep 'set ts=4' /etc/vimrc &> /dev/null || echo 'set ts=4' >> /etc/vimrc
+
+#安装常用软件包
+#安装编译所需工具
