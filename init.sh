@@ -26,6 +26,8 @@ if [ -d /etc/yum.repos.d ];then
     done
     curl https://mirrors.cloud.tencent.com/repo/centos7_base.repo -o /etc/yum.repos.d/centos7_base.repo
     curl https://mirrors.cloud.tencent.com/repo/epel-7.repo -o /etc/yum.repos.d/epel-7.repo
+    yum clean all
+    yum makecache
 else
     exit 3 && echo "ERROR: /etc/yum.repos.d not exist"
 fi
