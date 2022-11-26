@@ -43,6 +43,9 @@ fi
 #关闭selinux
 sed -i.bak 's|\(SELINUX=\)enforcing|\1disabled|g' /etc/selinux/config
 
+#优化grub2启动，系统故障排错需要
+sed -i.bak 's/rhgb\ quiet//g' /boot/grub2/grub.cfg
+sed -i.bak 's/rhgb\ quiet//g' /etc/grub2.cfg
 #配置vim
 yum list installed | grep ^vim &> /dev/null || yum install vim -y
 grep 'set ts=4' /etc/vimrc &> /dev/null || echo 'set ts=4' >> /etc/vimrc
