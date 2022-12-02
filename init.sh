@@ -50,5 +50,8 @@ grep '/rhgb\ quiet' /etc/grub2.cfg       &&  sed -i.bak 's/rhgb\ quiet//g' /etc/
 yum list installed | grep ^vim &> /dev/null || yum install vim -y
 grep 'set ts=4' /etc/vimrc &> /dev/null || echo 'set ts=4' >> /etc/vimrc
 
-#安装常用软件包
+#安装必要软件包
+yum install bash-completion.noarch bash-doc.x86_64  -y
+
 #安装编译所需工具
+echo "配置完成，请您退出系统后重新登录"
