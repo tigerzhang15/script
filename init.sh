@@ -44,14 +44,20 @@ fi
 grep 'SELINUX=enforcing' /etc/selinux/config  && sed -i.bak 's|\(SELINUX=\)enforcing|\1disabled|g' /etc/selinux/config
 
 #优化grub2启动，系统故障排错需要
-grep '/rhgb\ quiet' /boot/grub2/grub.cfg &&  sed -i.bak 's/rhgb\ quiet//g' /boot/grub2/grub.cfg
-grep '/rhgb\ quiet' /etc/grub2.cfg       &&  sed -i.bak 's/rhgb\ quiet//g' /etc/grub2.cfg
+grep 'rhgb quiet' /boot/grub2/grub.cfg &&  sed -i.bak 's/rhgb\ quiet//g' /boot/grub2/grub.cfg
+grep 'rhgb quiet' /etc/grub2.cfg       &&  sed -i.bak 's/rhgb\ quiet//g' /etc/grub2.cfg
 #配置vim
 yum list installed | grep ^vim &> /dev/null || yum install vim -y
 grep 'set ts=4' /etc/vimrc &> /dev/null || echo 'set ts=4' >> /etc/vimrc
 
 #安装必要软件包
-yum install bash-completion.noarch bash-doc.x86_64  -y
+yum install bash-completion.noarch bash-doc.x86_64 vim wget net-tools -y
 
 #安装编译所需工具
+
+echo "配置软件源为腾讯云源"
+echo "关闭防火墙和selinux"
+echo "优化grub启动项"
+echo "设置vim tab键默认为4个空格"
 echo "配置完成，请您退出系统后重新登录"
+
